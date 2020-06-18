@@ -1,2 +1,1 @@
-# rich-menu-line-bot
-rich menu
+# richmenu
