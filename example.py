@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """ Usage of RichMenu Manager """
 from richmenu import RichMenu, RichMenuManager
 import sys
@@ -10,35 +12,72 @@ print(args[1])
 user_id = "your user id"
 channel_access_token = "your access token"
 rmm = RichMenuManager(channel_access_token)
+image0 = "/path/to/maguro0.png"
+image1 = "/path/to/maguro1.png"
+image2 = "/path/to/maguro2.png"
+image3 = "/path/to/maguro3.png"
 
-# Setup RichMenu to register
-rm = RichMenu(name="Test menu", chat_bar_text="menu1")
-rm.add_area(0, 0, 2500, 1686, "message", "hoge")
-
-# Register
-res = rmm.register(rm, "C:\\Users\\t-kakuta\\Documents\\study3\\richmenu\\image.png")
-richmenu_id1 = res["richMenuId"]
-
+# menu0
+rm = RichMenu(name="Test menu", chat_bar_text="menu 0")
+rm.add_area(0, 0, 2500, 843, "message", "マグロ")
+rm.add_area(0, 843, 830, 840, "message", "捕獲")
+rm.add_area(833, 843, 830, 840, "message", "逃す")
+rm.add_area(1666, 843, 830, 840, "message", "マグロ一丁")
+res = rmm.register(rm, image0)
+richmenu_id0 = res["richMenuId"]
 print(res)
 
-rm = RichMenu(name="Test menu", chat_bar_text="menu2")
-rm.add_area(0, 0, 2500, 1686, "message", "unko")
+# menu1
+rm = RichMenu(name="Test menu", chat_bar_text="menu 1")
+rm.add_area(0, 0, 2500, 843, "message", "マグロ")
+rm.add_area(0, 843, 830, 840, "message", "捕獲")
+rm.add_area(833, 843, 830, 840, "message", "逃す")
+rm.add_area(1666, 843, 830, 840, "message", "マグロ一丁")
+res = rmm.register(rm, image1)
+richmenu_id1 = res["richMenuId"]
+print(res)
 
-# Register
-res = rmm.register(rm, "C:\\Users\\t-kakuta\\Documents\\study3\\richmenu\\image.png")
+# menu2
+rm = RichMenu(name="Test menu", chat_bar_text="menu 2")
+rm.add_area(0, 0, 2500, 843, "message", "マグロ")
+rm.add_area(0, 843, 830, 840, "message", "捕獲")
+rm.add_area(833, 843, 830, 840, "message", "逃す")
+rm.add_area(1666, 843, 830, 840, "message", "マグロ一丁")
+res = rmm.register(rm, image2)
 richmenu_id2 = res["richMenuId"]
+print(res)
 
+# menu3
+rm = RichMenu(name="Test menu", chat_bar_text="menu 3")
+rm.add_area(0, 0, 2500, 843, "message", "マグロ")
+rm.add_area(0, 843, 830, 840, "message", "捕獲")
+rm.add_area(833, 843, 830, 840, "message", "逃す")
+rm.add_area(1666, 843, 830, 840, "message", "マグロ一丁")
+res = rmm.register(rm, image3)
+richmenu_id3 = res["richMenuId"]
 print(res)
 
 # Apply to user
 
-if args[1] == '1':
+if args[1] == '0':
+    rmm.apply(user_id, richmenu_id0)
+    print("menu 0")
+    
+elif args[1] == '1':
     rmm.apply(user_id, richmenu_id1)
     print("menu 1")
-    
+
 elif args[1] == '2':
     rmm.apply(user_id, richmenu_id2)
     print("menu 2")
+
+elif args[1] == '3':
+    rmm.apply(user_id, richmenu_id3)
+    print("menu 3")
+
+elif args[1] == 'r':
+    rmm.remove_all()
+    print("remove all donne")
     
 else: 
     print("not setting")
