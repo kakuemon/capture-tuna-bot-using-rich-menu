@@ -30,11 +30,6 @@ USER_ID                   = os.environ["USER_ID"]
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
 YOUR_CHANNEL_SECRET       = os.environ["YOUR_CHANNEL_SECRET"]
 STORAGE_BUCKET            = os.environ["STORAGE_BUCKET"]
-BUCKET_NAME               = os.environ["BUCKET_NAME"]
-
-# GCS setting
-client = storage.Client()
-bucket = client.get_bucket(BUCKET_NAME)
 
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
