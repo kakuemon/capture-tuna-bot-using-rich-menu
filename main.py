@@ -49,10 +49,11 @@ handler      = WebhookHandler(YOUR_CHANNEL_SECRET)
 # rich menu setting
 rmm = RichMenuManager(YOUR_CHANNEL_ACCESS_TOKEN)
 
-image0 = bucket.get_blob('menu0.png')
-image1 = bucket.get_blob('menu1.png')
-image2 = bucket.get_blob('menu2.png')
-image3 = bucket.get_blob('menu3.png')
+image0 = "static/images/menu0.png"
+image1 = "static/images/menu1.png"
+image2 = "static/images/menu2.png"
+image3 = "static/images/menu3.png"
+
 
 # all rich menu deleate
 rmm.remove_all()
