@@ -2,6 +2,7 @@
 
 """ Usage of RichMenu Manager """
 from richmenu import RichMenu, RichMenuManager
+from google.cloud import storage
 
 # import python library
 from flask import Flask, request
@@ -29,6 +30,11 @@ USER_ID                   = os.environ["USER_ID"]
 YOUR_CHANNEL_ACCESS_TOKEN = os.environ["YOUR_CHANNEL_ACCESS_TOKEN"]
 YOUR_CHANNEL_SECRET       = os.environ["YOUR_CHANNEL_SECRET"]
 STORAGE_BUCKET            = os.environ["STORAGE_BUCKET"]
+BUCKET_NAME               = os.environ["BUCKET_NAME"]
+
+# GCS setting
+client = storage.Client()
+bucket = client.get_bucket(BUCKET_NAME)
 
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
@@ -41,10 +47,11 @@ handler      = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 # rich menu setting
 rmm = RichMenuManager(YOUR_CHANNEL_ACCESS_TOKEN)
-image0 = STORAGE_BUCKET + "/menu0.png"
-image1 = STORAGE_BUCKET + "/menu1.png"
-image2 = STORAGE_BUCKET + "/menu2.png"
-image3 = STORAGE_BUCKET + "/menu3.png"
+
+image0 = bucket.get_blob('menu0.png')
+image1 = bucket.get_blob('menu1.png')
+image2 = bucket.get_blob('menu2.png')
+image3 = bucket.get_blob('menu3.png')
 
 # all rich menu deleate
 rmm.remove_all()
@@ -152,19 +159,19 @@ def count_zero():
 
 def rich_menu0():
     global rmm,richmenu_id0
-    rmm.apply(user_id, richmenu_id0)
+    rmm.apply(USER_ID, richmenu_id0)
     return None
 def rich_menu1():
     global rmm,richmenu_id1
-    rmm.apply(user_id, richmenu_id1)
+    rmm.apply(USER_ID, richmenu_id1)
     return None
 def rich_menu2():
     global rmm,richmenu_id2
-    rmm.apply(user_id, richmenu_id2)
+    rmm.apply(USER_ID, richmenu_id2)
     return None
 def rich_menu3():
     global rmm,richmenu_id3
-    rmm.apply(user_id, richmenu_id3)
+    rmm.apply(USER_ID, richmenu_id3)
     return None
 
 
