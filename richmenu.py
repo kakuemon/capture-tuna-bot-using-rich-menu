@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """ Rich Menu Manager for Line Messaging API """
 import json
 import requests
@@ -94,7 +96,8 @@ class RichMenuManager:
         :type image_path: str
         """
         url = "https://api.line.me/v2/bot/richmenu/%s/content" % rich_menu_id
-        image_file = open(image_path, "rb")
+        # image_file = open(image_path, "rb")
+        image_file = image_path
         return requests.post(url, headers=dict(self.headers, **{"content-type": "image/png"}), data=image_file, verify=self.verify).json()
 
     def download_image(self, richmenu_id, filename=None):
