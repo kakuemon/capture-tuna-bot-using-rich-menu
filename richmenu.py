@@ -3,7 +3,6 @@
 """ Rich Menu Manager for Line Messaging API """
 import json
 import requests
-import cloudstorage
 
 class RichMenu:
     """ Datamodel of RichMenu """

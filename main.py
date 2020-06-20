@@ -3,7 +3,6 @@
 """ Usage of RichMenu Manager """
 from richmenu import RichMenu, RichMenuManager
 from google.cloud import storage
-import cloudstorage
 
 # import python library
 from flask import Flask, request
