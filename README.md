@@ -4,6 +4,10 @@
 
 https://github.com/uezo/richmenu
 
+https://developers.line.biz/ja/docs/messaging-api/using-rich-menus/
+
+https://qiita.com/b1008240/items/5ac8831ea6f0f0141d45
+
 #  1. 事前準備
 
 ## LINE Developerのアカウント作成
@@ -121,9 +125,127 @@ $ gcloud app logs tail -s default
 
 ## 実際のrich menu
 
+### rich menuを自分で作成したい場合
+
+まずLINE DEVELOPERSからchannel access tokenをコピーする
+コマンドラインにて下記を実行する。
+~~~
+CHANNEL_ACCESS_TOKEN=*****************************
+~~~
 
 
+### 1.richmenuを作成する。
+~~~
+curl -X POST \
+-H "Authorization: Bearer $CHANNEL_ACCESS_TOKEN" \
+-H 'Content-Type:application/json' \
+-d '{
+   "size":{
+      "width":2500,
+      "height":1686
+   },
+   "selected":false,
+   "name":"Controller",
+   "chatBarText":"Controller",
+   "areas":[
+      {
+         "bounds":{
+            "x":0,
+            "y":0,
+            "width":2500,
+            "height":843
+         },
+         "action":{
+            "type":"message",
+            "text":"マグロ"
+         }
+      },
+      {
+         "bounds":{
+            "x":0,
+            "y":843,
+            "width":830,
+            "height":840
+         },
+         "action":{
+            "type":"message",
+            "text":"捕獲"
+         }
+      },
+      {
+         "bounds":{
+            "x":833,
+            "y":843,
+            "width":830,
+            "height":840
+         },
+         "action":{
+            "type":"message",
+            "text":"逃す"
+         }
+      },
+      {
+         "bounds":{
+            "x":1666,
+            "y":843,
+            "width":830,
+            "height":840
+         },
+         "action":{
+            "type":"message",
+            "text":"マグロ一丁"
+         }
+      }
+   ]
+}' https://api.line.me/v2/bot/richmenu
+~~~
 
+rich menu IDが応答として帰ってきます。
+
+### 2. 画像のアップロード
+
+画像までのpathとrichmenu-IDを書き換えてPOSTしてください。
+~~~
+
+curl -X POST \
+-H "Authorization: Bearer $CHANNEL_ACCESS_TOKEN" \
+-H 'Content-Type: image/png' \
+-H 'Expect:' \
+-T /path/to/maguro1.png \
+https://api.line.me/v2/bot/richmenu/richmenu-{ID}/content
+~~~
+
+### richmenuのリストを取得
+~~~
+curl \
+-H "Authorization: Bearer $CHANNEL_ACCESS_TOKEN" \
+https://api.line.me/v2/bot/richmenu/list
+~~~
+richmenuのリストを取得できます。
+
+rich menuを表示させるには3-1もしくは3-2を実行する必要があります。
+
+### 3-1. デフォルトのrichmenuに設定する
+
+~~~
+curl -v -X POST https://api.line.me/v2/bot/user/all/richmenu/richmenu-{ID}\
+-H "Authorization: Bearer $CHANNEL_ACCESS_TOKEN"
+~~~
+
+### 3-2, ユーザーごとに設定
+~~~
+userID=******************************:
+
+curl -v -X POST https://api.line.me/v2/bot/user/${userID}/richmenu/richmenu-{ID}\
+-H "Authorization: Bearer $CHANNEL_ACCESS_TOKEN"
+~~~
+
+### richmenuの削除
+
+~~~
+curl -v -X DELETE https://api.line.me/v2/bot/richmenu/richmenu-{ID}\
+-H "Authorization: Bearer $CHANNEL_ACCESS_TOKEN"
+~~~
 
 ## LIBRARY
 - line-bot-sdk:
